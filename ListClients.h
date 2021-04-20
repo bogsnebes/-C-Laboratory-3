@@ -1,8 +1,15 @@
 #include "Client.h"
 #include <string.h>
-
+/**
+ * @class ListClient
+ * Содержит в себе массив объектов класса Client и функции работы с ними
+ */
 class ListClients {
     public:
+        /**
+        * Конструктор
+         * @param value - количество ячеек массива (list, free) для хранения объектов Client
+         */
     ListClients(int value) {
         list = new Client[value];
         free = new int[value];
@@ -11,7 +18,10 @@ class ListClients {
         }
         this->count = value;
     }
-
+    /**
+    * Проверяет количество занятых ячеек массива list
+    * @return количество объектов в list, которые не являются пустыми
+    */
         int checkList() {
         countFreeList = 0;
         for(int i = 0; i < count; i++) {
@@ -21,7 +31,11 @@ class ListClients {
         return (count - countFreeList);
     }
     }
-
+        /**
+        * Добавляет объект класса Client в массив list
+        * @param value - объект класса Client
+        * @return void
+        */
     void add(Client &value) {
         for(int i = 0; i < count; i++) {
             if (free[i] == 0) {
@@ -31,6 +45,13 @@ class ListClients {
             }
         }
     }
+    /**
+    * Создает и добавляет объект класса Client в массив list
+    * @param name - имя клиента
+    * @param adress - адресс клиента
+    * @param discount - скидка клиента
+    * @return void
+    */
     void add(char *name, char *adress, int discount) {
         for(int i = 0; i < count; i++) {
             if (free[i] == 0) {
@@ -41,6 +62,11 @@ class ListClients {
             }
         }
     }
+
+    /**
+    * Создает и добавляет объект класса Client в массив list. Ввод производиться в консоли пользователем.
+    * @return void
+    */
     void addKey() {
         setlocale(0, "");
         for(int i = 0; i < count; i++) {
@@ -63,6 +89,12 @@ class ListClients {
         }
               }
 
+    /**
+    * Удаляет объект из массива list
+    * @param value - номер ячейки массива
+    * @return void
+    * @note value Номер ячейки должен входить в размерность массива.
+    */
     void deleteClient(int value) {
         setlocale(0, "");
         if (value > (sizeof(list) - 1) and value < 0)
@@ -71,6 +103,10 @@ class ListClients {
         free[value] = 0;
     }
 
+    /**
+    * Отображает в консоли данные всех объектов Clients находящихся в массиве list (кроме пустых)
+    * @return void
+    */
     void showList() {
         for(int i = 0; i < count; i++) {
             if (free[i] == 1) {
@@ -80,9 +116,9 @@ class ListClients {
         }
     }
     private:
-    Client *list;
-    int *free;
-    int countFree = 0;
-    int count;
+    Client *list; // Массив объектов Client
+    int *free; // Массив свободных ячеек
+    int countFree = 0; // Количество свободных ячеек
+    int count; // Количество ячеек
     int countFreeList;
 };
